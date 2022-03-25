@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 
 public class MouseEventFrame extends JFrame implements MouseListener, KeyListener, MouseMotionListener{
 
-	private JLabel lbl;				// ÀÎ½ºÅÏ½º º¯¼ö 
+	private JLabel lbl;				// ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜ 
 	private Container c;
 	
 	public MouseEventFrame(String title) {
@@ -28,7 +28,7 @@ public class MouseEventFrame extends JFrame implements MouseListener, KeyListene
 		
 		c.setLayout(null);
 		
-		lbl = new JLabel("È«±æµ¿");
+		lbl = new JLabel("í™ê¸¸ë™");
 		lbl.setSize(40, 20);
 		lbl.setLocation(100, 100);
 		c.add(lbl);

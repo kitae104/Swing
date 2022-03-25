@@ -13,7 +13,7 @@ public class TempFrame2 extends JFrame{
 		setLocation(1300, 300);
 		setSize(300, 300);
 		
-		JButton btn = new JButton("¹öÆ°");
+		JButton btn = new JButton("ë²„íŠ¼");
 		
 //		Container c = this.getContentPane();
 //		c.add(btn);

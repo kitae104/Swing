@@ -20,7 +20,7 @@ public class TempFrame2 extends JFrame implements ActionListener{
 		setSize(300, 300);
 		setLayout(new FlowLayout());
 		
-		btn1 = new JButton("¹öÆ°1");
+		btn1 = new JButton("ë²„íŠ¼1");
 				
 		btn1.addActionListener(new ActionListener() {
 			
@@ -30,7 +30,7 @@ public class TempFrame2 extends JFrame implements ActionListener{
 				
 			}
 		});
-		btn2 = new JButton("¹öÆ°2");
+		btn2 = new JButton("ë²„íŠ¼2");
 		btn2.addActionListener(this);
 		
 		add(btn1);

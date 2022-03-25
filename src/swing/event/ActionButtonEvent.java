@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 
 public class ActionButtonEvent extends JFrame implements ActionListener{
 
-	private JButton btn;	// ÀÎ½ºÅÏ½º º¯¼ö 
+	private JButton btn;	// ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜
 	private JButton btn2;
 	
 	public ActionButtonEvent(String title) {
@@ -33,7 +33,7 @@ public class ActionButtonEvent extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object obj = e.getSource();	// ´©°¡ µ¿ÀÛÇß´ÂÁö?
+		Object obj = e.getSource();	// ëˆ„ê°€ ë™ì‘í–ˆëŠ”ì§€?
 		
 		if(obj == btn) {
 			System.out.println("AAAA");

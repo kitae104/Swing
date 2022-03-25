@@ -33,7 +33,7 @@ public class ButtonEvent extends JFrame{
 			JButton o = (JButton) e.getSource();
 			String s = o.getText();
 			if(s.equals("Action")) {
-				o.setText("¹öÆ°");
+				o.setText("ì•¡ì…˜");
 			} else {
 				o.setText("Action");
 			}		
