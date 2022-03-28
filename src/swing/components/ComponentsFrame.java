@@ -1,6 +1,5 @@
 package swing.components;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -10,7 +9,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class ComponentsFrame extends JFrame implements ActionListener{
 
@@ -23,7 +21,8 @@ public class ComponentsFrame extends JFrame implements ActionListener{
 	public ComponentsFrame(String title) {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocation(1300, 300);
+		//setLocationRelativeTo(null);
+		setLocation(2600, 200);
 		setSize(300, 600);
 		setLayout(new FlowLayout());
 		
