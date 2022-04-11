@@ -20,6 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
@@ -56,6 +57,7 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 	private DefaultListModel<String> model;
 	
 	private ChatFrame cf;
+	private JTextArea ta;
 	
 	public MainChatFrame(String title, int width, int height) {
 		setTitle(title);
@@ -166,7 +168,10 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 		ImageIcon img = new ImageIcon("images/gosling.jpg");
 		imgLabel = new JLabel(img);
 		
-		JScrollPane imgScroll = new JScrollPane(imgLabel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+		ta = new JTextArea();
+		ta.setLineWrap(true);
+		
+		JScrollPane imgScroll = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, list, imgScroll);
@@ -187,6 +192,9 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 			
 			
 		} else if(source == tf) {
+			ta.append("[서버] " + tf.getText() + "\n");
+			JTextArea ta2 = cf.getTa();
+			ta2.append("[서버] " + tf.getText() + "\n");
 			addListItem();
 		} else if(source == itemInfo) {
 			JOptionPane.showMessageDialog(this, "프로그램 by 김기태 ver 0.1");
@@ -254,4 +262,9 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 		
 	}
 
+	public JTextArea getTa() {
+		return ta;
+	}
+
+	
 }

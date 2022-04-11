@@ -63,7 +63,7 @@ public class ChatFrame extends JFrame implements ActionListener{
 		panelSouth = new JPanel();
 		//panelSouth.setBackground(Color.RED);
 		
-		tf = new JTextField(10);
+		tf = new JTextField(18);
 		tf.addActionListener(this);
 		panelSouth.add(tf);
 		
@@ -74,7 +74,7 @@ public class ChatFrame extends JFrame implements ActionListener{
 		btn2.addActionListener(this);
 		
 		panelSouth.add(btn);
-		panelSouth.add(btn2);
+//		panelSouth.add(btn2);
 		
 		
 		
@@ -85,9 +85,15 @@ public class ChatFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == btn || obj == tf) {			
-			ta.append("[사용자] " + tf.getText() + "\n");
+			ta.append("[클라이언트] " + tf.getText() + "\n");
+			
+			JTextArea ta2 = mainChatFrame.getTa();
+			ta2.append("[클라이언트] " + tf.getText() + "\n");
+			
 			tf.setText("");
 			tf.requestFocus();
+			
+			
 		} else if(obj == btn2) {
 			mainChatFrame.setTitle("제목 수정..");
 		}
@@ -96,6 +102,10 @@ public class ChatFrame extends JFrame implements ActionListener{
 
 	public JButton getBtn() { 
 		return btn;
+	}
+
+	public JTextArea getTa() {
+		return ta;
 	}
 
 	
