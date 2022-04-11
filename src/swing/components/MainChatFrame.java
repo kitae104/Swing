@@ -26,7 +26,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class MainFrame extends JFrame implements ActionListener, ListSelectionListener, MouseListener{
+public class MainChatFrame extends JFrame implements ActionListener, ListSelectionListener, MouseListener{
 	
 	private JList<String> list;
 	private Vector<String> vecList;
@@ -55,10 +55,12 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 	private JTextField tf;
 	private DefaultListModel<String> model;
 	
-	public MainFrame(String title, int width, int height) {
+	private ChatFrame cf;
+	
+	public MainChatFrame(String title, int width, int height) {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocation(2600, 200);
+		setLocation(2300, 200);
 		setSize(width, height);
 		setLayout(new BorderLayout());
 		
@@ -112,8 +114,14 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 		ImageIcon iconExit = new ImageIcon("images/exit.png");
 		
 		btnNew = new JButton(iconNew);
+		btnNew.addActionListener(this);
+		
 		btnOpen = new JButton(iconOpen);
+		btnOpen.addActionListener(this);
+		
 		btnSave = new JButton(iconSave);
+		btnSave.addActionListener(this);
+		
 		btnExit = new JButton(iconExit);
 		btnExit.addActionListener(this);
 		
@@ -182,6 +190,14 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 			addListItem();
 		} else if(source == itemInfo) {
 			JOptionPane.showMessageDialog(this, "프로그램 by 김기태 ver 0.1");
+		} else if (source == btnNew) {
+			cf = new ChatFrame("서브", 300, 300, this);
+			cf.setTitle("진짜 내꺼");
+		} else if (source == btnOpen) {			
+			cf.setTitle("정말 정말 내꺼");			
+		} else if (source == btnSave) {
+			JButton btn = cf.getBtn();
+			btn.setText("Send");
 		}
 		
 	}

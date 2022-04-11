@@ -19,13 +19,19 @@ public class ChatFrame extends JFrame implements ActionListener{
 	private JPanel panelSouth;
 	private JTextField tf;
 	private JButton btn;
+	private JButton btn2;
 	private JTextArea ta;
+	private MainChatFrame mainChatFrame;
 	
-	public ChatFrame(String title) {
+	public ChatFrame(String title, int width, int height, MainChatFrame mainChatFrame) {
+		
+		this.mainChatFrame = mainChatFrame;
+		mainChatFrame.setTitle("이건 내꺼");
+		
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocation(1300, 200);
-		setSize(300, 300);
+		setLocation(2900, 200);
+		setSize(width, height);
 		setLayout(new BorderLayout());
 		
 		setCenter();		
@@ -57,13 +63,18 @@ public class ChatFrame extends JFrame implements ActionListener{
 		panelSouth = new JPanel();
 		//panelSouth.setBackground(Color.RED);
 		
-		tf = new JTextField(18);
+		tf = new JTextField(10);
 		tf.addActionListener(this);
 		panelSouth.add(tf);
 		
 		btn = new JButton("전송");
 		btn.addActionListener(this);
+		
+		btn2 = new JButton("전송2");
+		btn2.addActionListener(this);
+		
 		panelSouth.add(btn);
+		panelSouth.add(btn2);
 		
 		
 		
@@ -77,9 +88,16 @@ public class ChatFrame extends JFrame implements ActionListener{
 			ta.append("[사용자] " + tf.getText() + "\n");
 			tf.setText("");
 			tf.requestFocus();
+		} else if(obj == btn2) {
+			mainChatFrame.setTitle("제목 수정..");
 		}
 		
 	}
 
+	public JButton getBtn() { 
+		return btn;
+	}
 
+	
+	
 }

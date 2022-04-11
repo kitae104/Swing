@@ -3,7 +3,7 @@ package swing.components;
 public class TestFrame {
 
 	public static void main(String[] args) {
-		ChatFrame tf = new ChatFrame("ChatFrame");
+		//ChatFrame tf = new ChatFrame("ChatFrame", 300, 300);
 	}
 
 }
