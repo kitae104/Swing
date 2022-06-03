@@ -30,7 +30,7 @@ public class ChatFrame extends JFrame implements ActionListener{
 		
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocation(2900, 200);
+		setLocation(900, 200);
 		setSize(width, height);
 		setLayout(new BorderLayout());
 		

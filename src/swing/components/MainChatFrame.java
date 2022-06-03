@@ -1,6 +1,7 @@
 package swing.components;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -60,7 +61,7 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 	public MainChatFrame(String title, int width, int height) {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocation(2300, 200);
+		setLocation(300, 200);
 		setSize(width, height);
 		setLayout(new BorderLayout());
 		
@@ -107,14 +108,16 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 
 	private void setToolBar() {
 		toolbar = new JToolBar();
+		//toolbar.setPreferredSize(new Dimension(20, 20));
 		
-		ImageIcon iconNew = new ImageIcon("images/new.png");
+		ImageIcon iconNew = new ImageIcon("images/new.png");		
 		ImageIcon iconOpen = new ImageIcon("images/open.png");
 		ImageIcon iconSave = new ImageIcon("images/save.png");
 		ImageIcon iconExit = new ImageIcon("images/exit.png");
 		
 		btnNew = new JButton(iconNew);
 		btnNew.addActionListener(this);
+		//btnNew.setPreferredSize(new Dimension(20, 20));
 		
 		btnOpen = new JButton(iconOpen);
 		btnOpen.addActionListener(this);
