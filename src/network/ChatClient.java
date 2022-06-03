@@ -1,10 +1,16 @@
-package swing.components;
+package network;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,7 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ChatFrame extends JFrame implements ActionListener{
+public class ChatClient extends JFrame implements ActionListener{
 
 	private JPanel panelCenter;
 	private JPanel panelSouth;
@@ -21,16 +27,16 @@ public class ChatFrame extends JFrame implements ActionListener{
 	private JButton btn;
 	private JButton btn2;
 	private JTextArea ta;
-	private MainChatFrame mainChatFrame;
+		
+	private Socket socket = null;
+	private BufferedReader in = null;
+	private BufferedWriter out = null;
 	
-	public ChatFrame(String title, int width, int height, MainChatFrame mainChatFrame) {
-		
-		this.mainChatFrame = mainChatFrame;
-		mainChatFrame.setTitle("이건 내꺼");
-		
+	public ChatClient(String title, int width, int height) {
+						
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocation(900, 200);
+		setLocation(2700, 200);
 		setSize(width, height);
 		setLayout(new BorderLayout());
 		
@@ -85,17 +91,19 @@ public class ChatFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == btn || obj == tf) {			
-			ta.append("[클라이언트] " + tf.getText() + "\n");
-			
-			JTextArea ta2 = mainChatFrame.getTa();
-			ta2.append("[클라이언트] " + tf.getText() + "\n");
-			
-			tf.setText("");
-			tf.requestFocus();
-			
-			
+			try {
+				String outMsg = tf.getText();
+				out.write(outMsg + "\n");
+				out.flush();
+				
+				ta.append("[클라이언트] " + outMsg + "\n");
+				tf.setText("");
+				tf.requestFocus();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		} else if(obj == btn2) {
-			mainChatFrame.setTitle("제목 수정..");
+			
 		}
 		
 	}
@@ -107,7 +115,37 @@ public class ChatFrame extends JFrame implements ActionListener{
 	public JTextArea getTa() {
 		return ta;
 	}
-
 	
+	public void setSocket() {
+		try {			
+			socket = new Socket("127.0.0.1", 9999);	
+			ta.append("서버 연결 완료!\n");
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			
+			while(true) {			
+				String inMessage = in.readLine();
+				ta.append("[서버] : " + inMessage + "\n");			
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				out.close();
+				in.close();
+				socket.close();	
+				
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+		}
+
+	}
+	
+	public static void main(String[] args) {
+		ChatClient cc = new ChatClient("채팅 클라이언트", 300, 400);
+		cc.setSocket();
+	}
 	
 }

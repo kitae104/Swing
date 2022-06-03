@@ -6,12 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -21,11 +27,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class MainChatFrame extends JFrame implements ActionListener, ListSelectionListener, MouseListener{
 	
@@ -57,6 +65,7 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 	private DefaultListModel<String> model;
 	
 	private ChatFrame cf;
+	private JTextArea ta;
 	
 	public MainChatFrame(String title, int width, int height) {
 		setTitle(title);
@@ -79,6 +88,8 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 		menuFile = new JMenu("파일");
 		itemNew = new JMenuItem("새파일");
 		itemOpen = new JMenuItem("열기");
+		itemOpen.addActionListener(this);
+		
 		itemSave = new JMenuItem("저장");
 		itemExit = new JMenuItem("종료");
 		itemExit.addActionListener(this);
@@ -169,7 +180,10 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 		ImageIcon img = new ImageIcon("images/gosling.jpg");
 		imgLabel = new JLabel(img);
 		
-		JScrollPane imgScroll = new JScrollPane(imgLabel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+		ta = new JTextArea();
+		ta.setLineWrap(true);
+		
+		JScrollPane imgScroll = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, list, imgScroll);
@@ -186,10 +200,12 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 			if((JOptionPane.showConfirmDialog(this, "정말 끝낼까요?", "프로그램 종료", 
 					JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION)) {
 				System.exit(0);
-			}
-			
+			}			
 			
 		} else if(source == tf) {
+			ta.append("[서버] " + tf.getText() + "\n");
+			JTextArea ta2 = cf.getTa();
+			ta2.append("[서버] " + tf.getText() + "\n");
 			addListItem();
 		} else if(source == itemInfo) {
 			JOptionPane.showMessageDialog(this, "프로그램 by 김기태 ver 0.1");
@@ -201,6 +217,32 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 		} else if (source == btnSave) {
 			JButton btn = cf.getBtn();
 			btn.setText("Send");
+		} else if(source == itemOpen) {
+			System.out.println("111");
+			JFileChooser fc = new JFileChooser();
+			
+			fc.addChoosableFileFilter(new FileNameExtensionFilter("PDF", "pdf"));
+			fc.addChoosableFileFilter(new FileNameExtensionFilter("Text", "txt"));
+			
+			fc.showSaveDialog(this);
+			
+			File in = fc.getSelectedFile();
+			BufferedReader br = null;
+			String line = null;
+			
+			try {
+				br = new BufferedReader(new FileReader(in));
+				while((line = br.readLine()) != null) {
+					ta.append(line + "\n");
+				}
+				br.close();
+				
+			} catch (FileNotFoundException e1) {				
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
 		}
 		
 	}
@@ -257,4 +299,9 @@ public class MainChatFrame extends JFrame implements ActionListener, ListSelecti
 		
 	}
 
+	public JTextArea getTa() {
+		return ta;
+	}
+
+	
 }
