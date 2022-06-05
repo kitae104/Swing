@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import db.login.DB;
+import db.DB;
+
 
 public class MemberInsertForm extends JFrame implements ActionListener {
 
@@ -199,7 +200,7 @@ public class MemberInsertForm extends JFrame implements ActionListener {
 		System.out.println("SQL : " + sql);
 		
 		try {
-			DB.executeQuery(sql);
+			DB.executeSql(sql);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
